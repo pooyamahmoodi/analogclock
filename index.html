@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clock Analog</title>
+    <style>
+        body{
+            display: grid;
+            place-content: center;
+            height: 100vh;
+            background-color: #ff6767;
+        }
+        .container{
+            width: 200px;
+            height: 200px;
+        }
+        .clock{
+            width: 90%;
+            height: 90%;
+            background-color: #dde1dde7;
+            border-radius: 50%;
+            position: relative;
+            left: 10px;
+            top: 10px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            text-align: center;
+        }
+        .clock::after{
+            content: "";
+            height: 90%;
+            width: 90%;
+            background-color: transparent;
+            box-shadow: inset -5px -3px 10px #ffffff75;
+                inset: 10px 3px 10px #5e687933;
+                border-radius: 50%;
+        }
+        .hours{
+            position: absolute;
+            font-size: 90%;
+            height: 100%;
+            font-weight: bold;
+        }
+        .arms{
+            transform-origin: bottom;
+            background-color: #222222;
+            position: absolute;
+            top: 30px;
+            width: 5px;
+            height: 35%;        
+            border-radius: 20px;
+            box-shadow: 1px 1px 10px 0 #8a8a8a;
+        }
+        .hours-arm{
+            height: 25%;
+            top: 50px ;
+
+        }
+
+        .second-arm{
+            width: 3px ;
+            height: 36%;
+            top: 27px;
+            background-color: #eea928;
+
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="clock">
+            <div class="hours"><p>12</p></div>
+            <div class="hours"><p>.</p></div>
+            <div class="hours"><p>.</p></div>
+            <div class="hours"><p style="transform: rotate(-90deg);">3</p></div>
+            <div class="hours"><p>.</p></div>
+            <div class="hours"><p>.</p></div>
+            <div class="hours"><p style="transform: rotate(-180deg);">6</p></div>
+            <div class="hours"><p>.</p></div>
+            <div class="hours"><p>.</p></div>
+            <div class="hours"><p style="transform: rotate(90deg);">9</p></div>
+            <div class="hours"><p>.</p></div>
+            <div class="hours"><p>.</p></div>
+            <div class="arms hours-arm"><p><p></div>
+            <div class="arms min-arm"><p></p></div>
+            <div class="arms second-arm"><p></p></div>
+
+        </div>
+    </div>
+    
+    
+    <script>
+        let increment = 30
+        for (i=0;i<12;i++) {
+            let w = i * increment
+            let hours = document.querySelectorAll(".hours")
+            hours[i].style.transform=`rotate(${w}deg)`
+        }
+
+        let timing = setInterval ((e) => {
+            let arms = document.querySelectorAll(".arms")
+
+            let date = new Date()
+
+            let sec = date.getSeconds()
+            let min = date.getMinutes()
+            let hour = date.getHours()
+
+            let secDeg = sec*6
+            let mindeg = min*6
+            let hourdeg = (hour*30)+((min/60)*30)
+            arms[0].style.transform = `rotateZ(${hourdeg}deg)`
+            arms[1].style.transform = `rotateZ(${mindeg}deg)`
+            arms[2].style.transform = `rotateZ(${secDeg}deg)`
+
+
+
+        },1000)
+
+    </script>
+</body>
+</html>
